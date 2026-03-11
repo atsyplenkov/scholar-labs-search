@@ -49,7 +49,7 @@ After copying the folder, start a new Codex session so the skill is discovered.
 
 ### BrowserOS
 
-BrowserOS MCP is required. If it is not configured in BrowserOS, enable it in `BrowserOS Settings` -> `BrowserOS as MCP`. Then ensure your CLI agent has an MCP entry like this:
+BrowserOS MCP is required. If it is not configured in BrowserOS, enable it in `BrowserOS Settings` → `BrowserOS as MCP`. Then ensure your CLI agent has an MCP entry like this:
 
 ```toml
 [mcp_servers.browseros]
