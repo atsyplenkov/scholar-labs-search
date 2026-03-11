@@ -1,8 +1,10 @@
 # Scholar Labs Search
 
-`scholar-labs-search` is a Codex skill for finding the top 3 best-fit papers for a topic using Google Scholar Labs through BrowserOS MCP.
+`scholar-labs-search` is a Codex skill for finding the top 3 best-fit papers for a topic using Google Scholar Labs through BrowserOS MCP. For those who have never worked with Google Scholar Labs, it is an LLM-powered search through one of the biggest scientific literature database.
 
 It is intended for fast, targeted literature lookup, not for full systematic reviews. It is optimized for quick, best-fit paper retrieval from the **first** visible Google Scholar Labs results page. This skill intentionally does not silently switch to another scholarly search engine when Scholar Labs is blocked.
+
+See Motivation to learn more why this exists.
 
 ## Requirements
 
@@ -79,34 +81,17 @@ For example, something like:
 Use $scholar-labs-search to find the top 3 best-fit papers on sediment trapping in estuaries.
 ```
 
-Or the skill can also be used for related prompts where Codex is asked to search Scholar Labs for a few relevant papers rather than run a full literature review.
-
-## Expected Workflow
-
-At a high level, the skill:
-
-1. Rewrites the request into a compact Scholar Labs query if needed.
-2. Opens Scholar Labs in BrowserOS.
-3. Submits the query.
-4. Waits for results to render.
-5. Extracts only the first visible results page.
-6. Ranks the best-fit papers.
-7. Uses Exa to verify better links for the top selections.
-
-If the first query returns no usable results, the skill retries once with a simpler query.
-
-## Manual Handoff
-
-If Scholar Labs is blocked by sign-in or anti-bot checks, the skill uses this handoff:
+Or the skill can also be used for related prompts where Codex is asked to search Scholar Labs for a few relevant papers rather than run a full literature review. My usual workflow is to leave "(REFERENCE!)" placeholders trhoughout the manuscript and then run Codex asking to replace them with relevant citations. For example:
 
 ```text
-Scholar Labs is blocked in BrowserOS. Complete the page in BrowserOS until the results list is visible, then reply 'resume'. Reply 'abort' to stop.
+In the @manuscript.md there are three places where a literature reference is needed (marked with a "REFERENCE!" tag). USing the $scholar-labs-search find a relevant studies one can cite there to support the logic. Add them to text and reference list
 ```
 
-After `resume`, the skill inspects the current page and continues only if results are visible.
+## Motivation
+Even though for the last half a year, I have been doing everyhting in Codex/Claude Code, I am still not ready to handle the article writing to them. And from ethical POV, I am not sure if I should. However, sometimes there is a need to "surgically" make a change in the text, to support a statement with a relevant citation, especially after Major Revisions. I am talking not about the backbone previous papers of your research, but more about small... But the process of finding that exact CITATION is sometimes very time consuming. And I need to acknowledge The Google Scholar Labs launched in November 2025 was a great helper, helping to reduce the amount browsing thought the endelss Google Scholar catalog. They were not pioneer in this space (LIST ALTERNATIVES) but from my perspective produced one of the best products in this field. So in one moment I thought, why shouldnt I delegate this process to the agents? Since the Google Scholar Labs doesnt have an API yet and I doubt that we can dream about the MCP server, this workaround came to mind. 
 
-## Tips
+## Alternatives
 
-- Use compact noun-phrase queries rather than long conceptual questions.
-- If a query is too abstract, drop weak qualifiers first.
-- When running multiple searches in one tab, Scholar Labs works more reliably if the session is reset before the next query.
+Apart from obvious Semantic Scholar, OpenAlex APIs, which does only allow you to search through the word matching in abstract, I found only one [scientific-literature-researcher subagent](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/10-research-analysis/scientific-literature-researcher.md) that uses the `bgpt` mcp. But frankly, the bgpt was not as good as Google Scholar Labs.
+
+*
