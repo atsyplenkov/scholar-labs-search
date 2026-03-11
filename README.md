@@ -6,6 +6,9 @@ It is intended for fast, targeted literature lookup, not for full systematic rev
 
 ## Requirements
 
+> [!NOTE]
+> It is expected that the skill works with any CLI agent that supports local skills. But it was tested only with Codex.
+
 You need:
 
 - CLI agent (Codex/Claude Code) with local skills support
