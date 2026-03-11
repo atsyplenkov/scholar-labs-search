@@ -88,11 +88,11 @@ In @manuscript.md there are three places where a literature reference is needed 
 ```
 
 ## Motivation
-For the last half a year I do most of my day-to-day work in Codex or Claude Code, but I still do not want an agent to write my papers end-to-end. I also think it is important to be careful about the ethics of LLM-assisted writing.
+For the last half a year, I have been doing almost everything in Codex or Claude Code, but I am still not ready to let them handle article writing for me. From an ethical point of view, I am also not sure that I should.
 
-That said, there are many moments where I only need a surgical change, such as adding a citation that supports a specific statement, especially after major revisions. Finding that exact paper can take a long time, even when you already know the topic well.
+However, sometimes I need to make a surgical change in a text and support a statement with a relevant citation, especially after major revisions. I am not talking about the backbone papers behind the whole research project, but rather about those smaller references that are still important. Finding that exact citation can be surprisingly time-consuming.
 
-Google Scholar Labs makes this much faster for targeted searching, but it does not offer a public API. This skill is a practical workaround that lets an agent use Scholar Labs through BrowserOS and bring back a short, high-quality shortlist.
+Google Scholar Labs, launched in November 2025, turned out to be a great helper here because it reduced the amount of browsing through the endless Google Scholar catalogue. They were not the first in this space, but from my perspective they produced one of the best tools for this kind of search. At one point I thought: why not delegate this process to an agent? Since Google Scholar Labs does not have an API yet, and I doubt we will see an MCP server for it any time soon, this skill became the workaround.
 
 ## Alternatives
 
