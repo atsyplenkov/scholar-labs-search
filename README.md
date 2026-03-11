@@ -1,27 +1,27 @@
 # Scholar Labs Search
 
-`scholar-labs-search` is a Codex skill for finding the top 3 best-fit papers for a topic using Google Scholar Labs through BrowserOS MCP. For those who have never worked with Google Scholar Labs, it is an LLM-powered search through one of the biggest scientific literature database.
+`scholar-labs-search` is a Codex skill that finds the top 3 best fit papers for a given topic using Google Scholar Labs via BrowserOS MCP. For those who have never worked with Google Scholar Labs, it is an LLM-powered search through one of the biggest scientific literature database.
 
-It is intended for fast, targeted literature lookup, not for full systematic reviews. It is optimized for quick, best-fit paper retrieval from the **first** visible Google Scholar Labs results page. This skill intentionally does not silently switch to another scholarly search engine when Scholar Labs is blocked.
+This skill is for fast, targeted literature lookup, not for systematic reviews. It is optimised for quick, best fit retrieval from the first visible Google Scholar Labs results page. It also does not silently switch to another search engine if Google Scholar Labs is blocked or unavailable.
 
-See Motivation to learn more why this exists.
+See [Motivation](#motivation) for why this exists.
 
 ## Requirements
 
 > [!NOTE]
-> It is expected that the skill works with any CLI agent that supports local skills. But it was tested only with Codex.
+> The skill should work with any CLI agent that supports local skills, but it has only been tested with Codex.
 
 You need:
 
-- CLI agent (Codex/Claude Code) with local skills support
-- [BrowserOS](https://www.browseros.com/) installed and running locally with MCP enabled
-- Network access to `https://scholar.google.com/scholar_labs/search?hl=en` (it's not available in all regions)
-- [Exa MCP](https://exa.ai/mcp) configured if you want verified DOI or publisher links after paper selection
+- A CLI agent (e.g., Codex or Claude Code) with local skills support
+- [BrowserOS](https://www.browseros.com/) installed and running locally, with MCP enabled
+- Network access to `https://scholar.google.com/scholar_labs/search?hl=en` (it is not available in all regions)
+- Optional: [Exa MCP](https://exa.ai/mcp) if you want verified DOI or publisher links after paper selection
 
 Practical note:
 
-- Google Scholar Labs may occasionally require sign-in or a CAPTCHA. When that happens, the skill pauses and asks the user to complete the page in BrowserOS, then resume.
-- You have to run BrowserOS manually to enable the BrowserOS MCP to use this skill.
+- Google Scholar Labs may occasionally require a sign-in or a CAPTCHA. When that happens, the skill pauses and asks you to complete the page in BrowserOS, then resume.
+- You must run BrowserOS yourself for the BrowserOS MCP to be available.
 
 ## Installation
 
@@ -49,7 +49,7 @@ After copying the folder, start a new Codex session so the skill is discovered.
 
 ### BrowserOS
 
-BrowserOS MCP is required. If it is not configured in BrowserOS, add it in `BrowserOS Settings` -> `BrowserOS as MCP`, then ensure Codex has this entry:
+BrowserOS MCP is required. If it is not configured in BrowserOS, enable it in `BrowserOS Settings` -> `BrowserOS as MCP`. Then ensure your CLI agent has an MCP entry like this:
 
 ```toml
 [mcp_servers.browseros]
@@ -60,7 +60,7 @@ See more about configuring BrowserOS MCP in the [BrowserOS documentation](https:
 
 ### Exa
 
-Exa is used after paper selection to improve outbound links. So, if it is not configured, the skill logic should still be usable for paper selection, but link verification will be weaker.
+Exa is only used after paper selection to improve outbound links. If you do not configure Exa, the core paper selection still works, but link verification is weaker.
 
 ```toml
 [mcp_servers.exa]
@@ -69,29 +69,33 @@ url = "https://mcp.exa.ai/mcp"
 
 ## How To Use
 
-Open the BrowserOS manually and ensure that the `browseros mcp` is up and running. Then, one can either invoke the skill explicitly in a prompt:
+Open BrowserOS and confirm the BrowserOS MCP server is running. Then you can invoke the skill explicitly:
 
 ```text
-Use $scholar-labs-search to find the top 3 best-fit papers for my topic.
+Use $scholar-labs-search to find the top 3 best fit papers for my topic.
 ```
 
 For example, something like:
 
 ```text
-Use $scholar-labs-search to find the top 3 best-fit papers on sediment trapping in estuaries.
+Use $scholar-labs-search to find the top 3 best fit papers on sediment trapping in estuaries.
 ```
 
-Or the skill can also be used for related prompts where Codex is asked to search Scholar Labs for a few relevant papers rather than run a full literature review. My usual workflow is to leave "(REFERENCE!)" placeholders trhoughout the manuscript and then run Codex asking to replace them with relevant citations. For example:
+You can also use the skill in a workflow where you need a few targeted citations rather than a full literature review. One practical pattern is to leave `(REFERENCE!)` placeholders in a manuscript and ask the agent to replace them with suitable citations. For example:
 
 ```text
-In the @manuscript.md there are three places where a literature reference is needed (marked with a "REFERENCE!" tag). USing the $scholar-labs-search find a relevant studies one can cite there to support the logic. Add them to text and reference list
+In @manuscript.md there are three places where a literature reference is needed (marked with "REFERENCE!"). Using $scholar-labs-search, find relevant studies to cite for each place. Add the citations to the text and update the reference list.
 ```
 
 ## Motivation
-Even though for the last half a year, I have been doing everyhting in Codex/Claude Code, I am still not ready to handle the article writing to them. And from ethical POV, I am not sure if I should. However, sometimes there is a need to "surgically" make a change in the text, to support a statement with a relevant citation, especially after Major Revisions. I am talking not about the backbone previous papers of your research, but more about small... But the process of finding that exact CITATION is sometimes very time consuming. And I need to acknowledge The Google Scholar Labs launched in November 2025 was a great helper, helping to reduce the amount browsing thought the endelss Google Scholar catalog. They were not pioneer in this space (LIST ALTERNATIVES) but from my perspective produced one of the best products in this field. So in one moment I thought, why shouldnt I delegate this process to the agents? Since the Google Scholar Labs doesnt have an API yet and I doubt that we can dream about the MCP server, this workaround came to mind. 
+For the last half a year I do most of my day-to-day work in Codex or Claude Code, but I still do not want an agent to write my papers end-to-end. I also think it is important to be careful about the ethics of LLM-assisted writing.
+
+That said, there are many moments where I only need a surgical change, such as adding a citation that supports a specific statement, especially after major revisions. Finding that exact paper can take a long time, even when you already know the topic well.
+
+Google Scholar Labs makes this much faster for targeted searching, but it does not offer a public API. This skill is a practical workaround that lets an agent use Scholar Labs through BrowserOS and bring back a short, high-quality shortlist.
 
 ## Alternatives
 
-Apart from obvious Semantic Scholar, OpenAlex APIs, which does only allow you to search through the word matching in abstract, I found only one [scientific-literature-researcher subagent](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/10-research-analysis/scientific-literature-researcher.md) that uses the `bgpt` mcp. But frankly, the bgpt was not as good as Google Scholar Labs.
+If you do not need Scholar Labs specifically, there are strong alternatives. Semantic Scholar and OpenAlex provide APIs that can be enough for keyword and metadata-based searching.
 
-*
+I have also seen a [scientific-literature-researcher subagent](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/categories/10-research-analysis/scientific-literature-researcher.md) that uses the `bgpt` MCP. In my own use, Scholar Labs gave better results for the kinds of targeted lookups this skill is meant to support.
