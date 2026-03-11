@@ -63,7 +63,7 @@ Treat the page as `blocked` when any of the following is true:
 
 When blocked, send this exact prompt:
 
-`Scholar Labs is blocked in BrowserOS. Complete the page in BrowserOS until the results list is visible, then reply 'resume'. Reply 'abort' to stop.`
+`Google Scholar Labs is blocked in BrowserOS. Complete the page in BrowserOS until the results list is visible, then reply 'resume'. Reply 'abort' to stop.`
 
 After the user replies `resume`:
 
