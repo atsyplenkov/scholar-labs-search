@@ -1,0 +1,18 @@
+interface:
+  display_name: "Scholar Labs Search"
+  short_description: "Search Scholar Labs for key papers"
+  default_prompt: "Use $scholar-labs-search to find the top 3 best-fit papers for my topic in Google Scholar Labs."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "browseros"
+      description: "BrowserOS MCP server for Scholar Labs browsing and handoff"
+      transport: "streamable_http"
+      url: "http://127.0.0.1:9001/mcp"
+    - type: "mcp"
+      value: "exa"
+      description: "Exa MCP server for verified link enrichment after paper selection"
+      transport: "streamable_http"
+      url: "https://mcp.exa.ai/mcp"
+policy:
+  allow_implicit_invocation: false
