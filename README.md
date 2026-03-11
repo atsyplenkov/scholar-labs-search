@@ -1,8 +1,8 @@
 # Scholar Labs Search
 
-`scholar-labs-search` is a Codex skill that finds the top 3 best fit papers for a given topic using Google Scholar Labs via BrowserOS MCP. For those who have never worked with Google Scholar Labs, it is an LLM-powered search through one of the biggest scientific literature database.
+`scholar-labs-search` is a Codex skill that finds the top 3 best fit papers for a given topic using Google Scholar Labs via BrowserOS MCP. For those who have never worked with [Google Scholar Labs](https://scholar.google.com/scholar_labs/search?hl=en), it is an LLM-powered search through one of the biggest scientific literature database.
 
-This skill is for fast, targeted literature lookup, not for systematic reviews. It is optimised for quick, best fit retrieval from the first visible Google Scholar Labs results page. It also does not silently switch to another search engine if Google Scholar Labs is blocked or unavailable.
+This skill is for fast, targeted literature lookup, not for systematic reviews. It is optimised for quick, best fit retrieval from the first visible [Google Scholar Labs](https://scholar.google.com/scholar_labs/search?hl=en) results page. It also does not silently switch to another search engine if [Google Scholar Labs](https://scholar.google.com/scholar_labs/search?hl=en) is blocked or unavailable.
 
 See [Motivation](#motivation) for why this exists.
 
